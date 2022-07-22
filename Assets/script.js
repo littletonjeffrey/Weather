@@ -20,6 +20,7 @@ let weather = {
             // .then((data) => console.log(data));
             .then((data) => this.displayWeather(data));
     },
+    
     displayWeather: function(data) {
         const { name } = data;
         const { icon, description } = data.weather[0];
@@ -33,7 +34,9 @@ let weather = {
         document.querySelector("#wind").innerText = "Wind" + speed + "mi/h";
     },
     search: function () {
-        this.fetchWeather(document.querySelector(".search-bar").value)
+        this.fetchWeather(document.querySelector(".search").value)
+        e.preventDefault();
+        var userSearch = search
     }
 };
 
@@ -47,36 +50,46 @@ addEventListener("click", function () {
 
 // https://api.openweathermap.org/data/2.5/weather?q=Denver&units=imperial&appid=0d205d676089b89aaf4fd5a075b4c7d6
 var apiKey2 = '0d205d676089b89aaf4fd5a075b4c7d6'
-// var userSearch = document.getElementById('userInput').value;
-// var weatherAPIUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`
-// var geoAPIurl=`http://api.openweathermap.org/geo/1.0/direct?q=${userSearch}&limit=5&appid=${apiKey}`
+var userSearch = document.getElementById('userInput').value;
+// var weatherAPIUrl = `https://api.openweathermap.org/`
+// data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}
 // // var testUrl = `http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=${apiKey}`
 // // Value from search form
 // var lat;
 // var lon;
 
 // // document.getElementById("#searchTerm").value
-// function getLatLon(){
+function getLatLon(){
+    userSearch = "Austin"
+    var geoAPIurl=`http://api.openweathermap.org/geo/1.0/direct?q=${userSearch}&limit=5&appid=${apiKey2}`
+    
 
-// fetch(geoAPIurl)
-// .then(function(response){
-// return response.json();
-// }).then(function(data){
-//     console.log(data);
-//     console.log("lat",data[0].lat)
-//     console.log("lon",data[0].lon)
-//     lat = data[0].lat
-//     lon = data[0].lon
-//     currentForecast();
-// })
-// };
+    fetch(geoAPIurl)
+.then(function(response){
+return response.json();
+})
+.then(function(data){
+    if (!data[0]) {
+        console.log ("Location not found")
+    }else{
 
-// function currentForecast(){
-// fetch(weatherAPIUrl)
-// .then(function(response){
-// return response.json();
-// }).then(function(data){
-//     console.log(data);
-//     // APPEND TO PAGE   
-// })
-// };
+    }
+
+    console.log(data[0]);
+    // console.log("lat",data[0].lat)
+    // console.log("lon",data[0].lon)
+    // lat = data[0].lat
+    // lon = data[0].lon
+    // currentForecast();
+})
+};
+
+function currentForecast(){
+fetch(weatherAPIUrl)
+.then(function(response){
+return response.json();
+}).then(function(data){
+    console.log(data);
+    // APPEND TO PAGE   
+})
+};
