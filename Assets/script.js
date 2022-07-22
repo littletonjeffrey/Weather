@@ -10,7 +10,7 @@
 // THEN I am again presented with current and future conditions for that city
 
 var apiKey = 'd91f911bcf2c0f925fb6535547a5ddc9'
-var userSearch = "Austin"
+var userSearch = document.getElementById('userInput').value;
 var weatherAPIUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`
 var geoAPIurl=`http://api.openweathermap.org/geo/1.0/direct?q=${userSearch}&limit=5&appid=${apiKey}`
 // var testUrl = `http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=${apiKey}`
