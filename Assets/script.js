@@ -1,26 +1,41 @@
-// WHEN I view current weather conditions for that city
-// https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
+
+// let weatherAPIUrl = 'https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}'
 // https://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
-// THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
-// WHEN I view the UV index
-// THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
-// WHEN I view future weather conditions for that city
-// THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
-// WHEN I click on a city in the search history
-// THEN I am again presented with current and future conditions for that city
-let weather = {
-    "apiKey": "0d205d676089b89aaf4fd5a075b4c7d6",
-    fetchWeather: function(city) {
+
+var apiKey2 = '0d205d676089b89aaf4fd5a075b4c7d6'
+var userSearch = document.getElementById('userInput').value;
+
+function getLatLon(){
+    fetch('http://api.openweathermap.org/geo/1.0/direct?q="
+    + userSearch
+    + "&limit=5&appid="
+    + apiKey2
+    ).then((response) => response.json())
+    // return response.json();
+    .then(function(data){
+    if (!data[0]) {
+        console.log ("Location not found")
+    }else{
+    // console.log("lat",data[0].lat)
+    // console.log("lon",data[0].lon)
+    latVar = data[0].lat
+    lonVar = data[0].lon
+    currentForecast();
+}
+})
+};
+
+currentForecast() = {
+    fetchWeather: function() {
         fetch(
-            "https://api.openweathermap.org/data/2.5/weather?q=" 
-            + city 
-            + "&units=imperial&appid=" + this.apiKey
+            "https://api.openweathermap.org/data/2.5/weather?" 
+            + "lat=" + latVar +"&lon=" + lonVar
+            + "&units=imperial&appid=" + apiKey2
             
             ).then((response) => response.json())
             // .then((data) => console.log(data));
             .then((data) => this.displayWeather(data));
     },
-    
     displayWeather: function(data) {
         const { name } = data;
         const { icon, description } = data.weather[0];
@@ -49,8 +64,7 @@ addEventListener("click", function () {
 
 
 // https://api.openweathermap.org/data/2.5/weather?q=Denver&units=imperial&appid=0d205d676089b89aaf4fd5a075b4c7d6
-var apiKey2 = '0d205d676089b89aaf4fd5a075b4c7d6'
-var userSearch = document.getElementById('userInput').value;
+
 // var weatherAPIUrl = `https://api.openweathermap.org/`
 // data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}
 // // var testUrl = `http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=${apiKey}`
@@ -59,37 +73,14 @@ var userSearch = document.getElementById('userInput').value;
 // var lon;
 
 // // document.getElementById("#searchTerm").value
-function getLatLon(){
-    userSearch = "Austin"
-    var geoAPIurl=`http://api.openweathermap.org/geo/1.0/direct?q=${userSearch}&limit=5&appid=${apiKey2}`
-    
 
-    fetch(geoAPIurl)
-.then(function(response){
-return response.json();
-})
-.then(function(data){
-    if (!data[0]) {
-        console.log ("Location not found")
-    }else{
 
-    }
-
-    console.log(data[0]);
-    // console.log("lat",data[0].lat)
-    // console.log("lon",data[0].lon)
-    // lat = data[0].lat
-    // lon = data[0].lon
-    // currentForecast();
-})
-};
-
-function currentForecast(){
-fetch(weatherAPIUrl)
-.then(function(response){
-return response.json();
-}).then(function(data){
-    console.log(data);
-    // APPEND TO PAGE   
-})
-};
+// function currentForecast(){
+// fetch(weatherAPIUrl)
+// .then(function(response){
+// return response.json();
+// }).then(function(data){
+//     console.log(data);
+//     // APPEND TO PAGE   
+// })
+// };
