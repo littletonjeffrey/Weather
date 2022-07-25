@@ -15,7 +15,7 @@ html {
 /* The hero image */
 .hero-image {
   background-image: 
-    url("/Assets/images/pexels-johannes-plenio-1118873.jpg") !important;
+    url("https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg") !important;
   height: 40%;
   background-position: center;
   background-repeat: no-repeat;
